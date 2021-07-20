@@ -1,0 +1,36 @@
+.canvas-container {
+  width: auto;
+  height: 500px;
+  border: 1px solid black;
+}
+.canvas_whiteboard_buttons {
+  background: #c0c0c0a8;
+  padding: 0 !important;
+}
+.canvas_whiteboard_button-clear{
+ padding-top: 0 !important;     
+}
+.canvas_whiteboard_button{
+    padding-top: 0 !important;
+}
+@media (min-width: 401px) {
+  .canvas-container {
+    width: auto;
+    height: 600px;
+    border: 1px solid black;
+  }
+  .canvas_whiteboard_buttons{
+      right: inherit !important;
+  }
+}
+@media (max-width: 400px) {
+  .canvas_wrapper_div {
+    position: relative;
+  }
+}
+.img-input{
+display: none;
+}
+.mb-1{
+    margin-bottom: 10px;
+}
