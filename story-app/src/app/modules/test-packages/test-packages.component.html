@@ -1,0 +1,19 @@
+<div class="mb-1">
+  <input type="file" class="img-input" (change)="onFileChanged($event)" #fileInput>
+  <button (click)="fileInput.click()" >Select image or video</button>
+  <input type="text" >
+  <button  >add text</button>
+</div>
+
+
+<div class="canvas-container">
+  <canvas-whiteboard
+  #canvasWhiteboard
+  [options]="canvasOptions"
+  [imageUrl]="imageBase64"
+  (onBatchUpdate)="sendBatchUpdate($event)"
+  (onClear)="onCanvasClear()"
+  (onUndo)="onCanvasUndo($event)"
+>
+</canvas-whiteboard>
+</div>
