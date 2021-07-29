@@ -27,6 +27,14 @@
   >
     Text
   </button>
+  <input type="file"> 
+  <button
+  mat-raised-button
+  [color]="selectedButton['image'] ? 'primary' : ''"
+  (click)="setSelection('image'); addShape('image')"
+>
+  Image
+</button>
   <button
     mat-raised-button
     [color]="selectedButton['undo'] ? 'primary' : ''"
@@ -41,12 +49,6 @@
   >
     Erase
   </button>
-  <button
-    mat-raised-button
-    [color]="selectedButton['color'] ? 'primary' : ''"
-    (click)="clearSelection(); setSelection('color')"
-  >
-    color
-  </button>
+  <app-story-colors ></app-story-colors>
 </div>
 <div id="container"></div>

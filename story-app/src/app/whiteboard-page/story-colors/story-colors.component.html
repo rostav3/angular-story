@@ -1,0 +1,9 @@
+<div class="colors">
+  <div
+    *ngFor="let item of colorList"
+    class="color-buble cursor-item"
+    [ngStyle]="{ 'background-color': item.color }"
+    [ngClass]="item.selected ? 'border' : ''"
+    (click)="emitColor(item)"
+  ></div>
+</div>

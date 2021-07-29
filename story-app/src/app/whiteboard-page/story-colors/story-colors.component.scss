@@ -1,0 +1,23 @@
+.color-buble{
+    border-radius: 20px;
+    height: 20px;
+    width: 25px;
+}
+.colors{
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    width: 100%;
+    margin: 10px 0 10px;
+    height: 35px;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    background-color: burlywood;
+}
+.cursor-item{ 
+    cursor: pointer;
+}
+.border{
+    border: 3px solid black;
+}

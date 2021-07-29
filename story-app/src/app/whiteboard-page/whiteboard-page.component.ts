@@ -13,13 +13,15 @@ export class WhiteboardPageComponent implements OnInit {
   shapes: any = [];
   stage!: Konva.Stage;
   layer!: Konva.Layer;
+
   selectedButton: any = {
     'circle': false,
     'rectangle': false,
     'line': false,
     'undo': false,
     'erase': false,
-    'text': false
+    'text': false,
+    'image': false,
   }
   erase: boolean = false;
   transformers: Konva.Transformer[] = [];
@@ -61,6 +63,9 @@ export class WhiteboardPageComponent implements OnInit {
     }
     else if (type == 'text') {
       this.addText();
+    }
+    else if (type == 'image') {
+      
     }
   }
   addText() {

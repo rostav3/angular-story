@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { WhiteboardPageComponent } from './whiteboard-page/whiteboard-page.component';
 import { ShapeService } from 'src/services/shape.service';
 import { TextNodeService } from 'src/services/text-node.service';
+import { StoryColorsComponent } from './whiteboard-page/story-colors/story-colors.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WhiteboardPageComponent
+    WhiteboardPageComponent,
+    StoryColorsComponent
   ],
   imports: [
     BrowserModule,
