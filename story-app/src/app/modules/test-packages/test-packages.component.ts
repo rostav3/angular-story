@@ -1,15 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import {
   CanvasWhiteboardComponent,
-  CanvasWhiteboardService,
-  CanvasWhiteboardUpdate,
   CanvasWhiteboardOptions,
-  CanvasWhiteboardShapeService,
-  CircleShape,
-  SmileyShape,
-  StarShape,
-  LineShape,
-  RectangleShape,
 } from 'ng2-canvas-whiteboard';
 
 @Component({
