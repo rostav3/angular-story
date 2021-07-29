@@ -1,31 +1,40 @@
 import { Injectable } from '@angular/core';
 import Konva from 'konva';
 import { Shape, ShapeConfig } from 'konva/types/Shape';
+import { ColorService } from './color.service';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TextNodeService {
-constructor() { }
-textNode(stage: Konva.Stage, layer: Konva.Layer) {
+  selectedFill: string = '#000000';
+
+  constructor(private colorService: ColorService) {}
+  subscribeToColors(): void {
+    this.colorService.selectedFill.subscribe((fill) => {
+      this.selectedFill = fill;
+    });
+  }
+  textNode(stage: Konva.Stage, layer: Konva.Layer) {
     const textNode = new Konva.Text({
       text: 'type here',
       x: 50,
       y: 80,
       fontSize: 20,
       draggable: true,
-      width: 200
+      width: 200,
+      fill: this.selectedFill,
     });
-layer.add(textNode);
-let tr = new Konva.Transformer({
+    layer.add(textNode);
+    let tr = new Konva.Transformer({
       node: textNode as any,
       enabledAnchors: ['middle-left', 'middle-right'],
       // set minimum width of text
       boundBoxFunc: function (oldBox, newBox) {
         newBox.width = Math.max(30, newBox.width);
         return newBox;
-      }
+      },
     });
-stage.on('click', function (e) {
+    stage.on('click', function (e) {
       if (!this.clickStartShape) {
         return;
       }
@@ -33,22 +42,21 @@ stage.on('click', function (e) {
         layer.add(tr as unknown as Shape<ShapeConfig>);
         tr.attachTo(e.target);
         layer.draw();
-      }
-      else {
+      } else {
         tr.detach();
         layer.draw();
       }
-});
-textNode.on('transform', function () {
+    });
+    textNode.on('transform', function () {
       // reset scale, so only with is changing by transformer
       textNode.setAttrs({
         width: textNode.width() * textNode.scaleX(),
-        scaleX: 1
+        scaleX: 1,
       });
     });
-layer.add(tr as unknown as Shape<ShapeConfig>);
-layer.draw();
-textNode.on('dblclick', () => {
+    layer.add(tr as unknown as Shape<ShapeConfig>);
+    layer.draw();
+    textNode.on('dblclick', () => {
       // hide text node and transformer:
       textNode.hide();
       tr.hide();
@@ -63,7 +71,7 @@ textNode.on('dblclick', () => {
       // so position of textarea will be the sum of positions above:
       let areaPosition = {
         x: stageBox.left + textPosition.x,
-        y: stageBox.top + textPosition.y
+        y: stageBox.top + textPosition.y,
       };
       // create textarea and style it
       let textarea = document.createElement('textarea');
@@ -99,19 +107,18 @@ textNode.on('dblclick', () => {
       let px = 0;
       // also we need to slightly move textarea on firefox
       // because it jumps a bit
-      let isFirefox =
-        navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+      let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
       if (isFirefox) {
         px += 2 + Math.round(textNode.fontSize() / 20);
       }
       transform += 'translateY(-' + px + 'px)';
-textarea.style.transform = transform;
-// reset height
+      textarea.style.transform = transform;
+      // reset height
       textarea.style.height = 'auto';
       // after browsers resized it we can set actual value
       textarea.style.height = textarea.scrollHeight + 3 + 'px';
-textarea.focus();
-function removeTextarea() {
+      textarea.focus();
+      function removeTextarea() {
         textarea.parentNode?.removeChild(textarea);
         window.removeEventListener('click', handleOutsideClick);
         textNode.show();
@@ -119,10 +126,10 @@ function removeTextarea() {
         tr.forceUpdate();
         layer.draw();
       }
-function setTextareaWidth(newWidth: any) {
+      function setTextareaWidth(newWidth: any) {
         if (!newWidth) {
           // set width for placeholder
-          newWidth = (textNode as any).placeholder.length *       textNode.fontSize();
+          newWidth = (textNode as any).placeholder.length * textNode.fontSize();
         }
         // some extra fixes on different browsers
         let isSafari = /^((?!chrome|android).)*safari/i.test(
@@ -133,7 +140,7 @@ function setTextareaWidth(newWidth: any) {
         if (isSafari || isFirefox) {
           newWidth = Math.ceil(newWidth);
         }
-let isEdge =
+        let isEdge =
           (document as any).documentMode || /Edge/.test(navigator.userAgent);
         if (isEdge) {
           newWidth += 1;
@@ -152,14 +159,14 @@ let isEdge =
           removeTextarea();
         }
       });
-     textarea.addEventListener('keydown', function (e) {
+      textarea.addEventListener('keydown', function (e) {
         let scale = textNode.getAbsoluteScale().x;
         setTextareaWidth(textNode.width() * scale);
         textarea.style.height = 'auto';
         textarea.style.height =
           textarea.scrollHeight + textNode.fontSize() + 'px';
       });
-   function handleOutsideClick(e: any) {
+      function handleOutsideClick(e: any) {
         if (e.target !== textarea) {
           removeTextarea();
         }

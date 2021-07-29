@@ -29,7 +29,7 @@ export class WhiteboardPageComponent implements OnInit {
   ) { }
   ngOnInit() {
     let width = window.innerWidth * 0.9;
-    let height = window.innerHeight;
+    let height = window.innerHeight * 0.8;
     this.stage = new Konva.Stage({
       container: 'container',
       width: width,
