@@ -27,14 +27,20 @@
   >
     Text
   </button>
-  <input type="file"> 
+  <input
+    type="file"
+    class="img-input"
+    accept="image/*"
+    (change)="addImage(fileInput)"
+    #fileInput
+  />
   <button
-  mat-raised-button
-  [color]="selectedButton['image'] ? 'primary' : ''"
-  (click)="setSelection('image'); addShape('image')"
->
-  Image
-</button>
+    mat-raised-button
+    [color]="selectedButton['image'] ? 'primary' : ''"
+    (click)="setSelection('image'); fileInput.click()"
+  >
+    Image
+  </button>
   <button
     mat-raised-button
     [color]="selectedButton['undo'] ? 'primary' : ''"
@@ -49,6 +55,6 @@
   >
     Erase
   </button>
-  <app-story-colors ></app-story-colors>
+  <app-story-colors></app-story-colors>
 </div>
 <div id="container"></div>
